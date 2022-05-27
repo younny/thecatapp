@@ -18,16 +18,16 @@ import kotlinx.coroutines.Job
 
 @Composable
 fun navigationIcon(navController: NavController, onToggleDrawer: () -> Unit): @Composable (() -> Unit) {
-    val previousBackStackEntry: NavBackStackEntry? by navController.previousBackStackEntryAsState()
-    if (previousBackStackEntry != null) {
-        return {
-            IconButton(onClick = {
-                navController.popBackStack()
-            }) {
-                Icon(Icons.Default.ArrowBack, contentDescription = "Back Button")
-            }
-        }
-    }
+//    val previousBackStackEntry: NavBackStackEntry? by navController.previousBackStackEntryAsState()
+//    if (previousBackStackEntry != null) {
+//        return {
+//            IconButton(onClick = {
+//                navController.popBackStack()
+//            }) {
+//                Icon(Icons.Default.ArrowBack, contentDescription = "Back Button")
+//            }
+//        }
+//    }
     return {
         IconButton(onClick = {
             onToggleDrawer()

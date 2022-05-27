@@ -14,7 +14,9 @@ import com.younny.demo.thecatapp.ui.catdetails.CatDetailsViewModel
 import com.younny.demo.thecatapp.ui.cats.CatsScreen
 import com.younny.demo.thecatapp.ui.cats.CatsViewModel
 import com.younny.demo.thecatapp.ui.common.BaseScreen
+import com.younny.demo.thecatapp.ui.game.GameScreen
 import com.younny.demo.thecatapp.ui.main.NavigationKeys.Arg.CAT_IMAGE_ID
+import com.younny.demo.thecatapp.ui.settings.SettingsScreen
 import kotlinx.coroutines.flow.receiveAsFlow
 
 @Composable
@@ -47,6 +49,12 @@ fun TheCatNavHost(navController: NavHostController) {
         composable(route = BaseScreen.Breeds.name) {
             val viewModel: BreedsViewModel = hiltViewModel()
             BreedsScreen(state = viewModel.state)
+        }
+        composable(route = BaseScreen.Game.name) {
+            GameScreen()
+        }
+        composable(route = BaseScreen.Settings.name) {
+            SettingsScreen()
         }
     }
 }
