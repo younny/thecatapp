@@ -7,6 +7,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.younny.demo.thecatapp.ui.breeds.BreedsScreen
+import com.younny.demo.thecatapp.ui.breeds.BreedsViewModel
 import com.younny.demo.thecatapp.ui.catdetails.CatDetailsScreen
 import com.younny.demo.thecatapp.ui.catdetails.CatDetailsViewModel
 import com.younny.demo.thecatapp.ui.cats.CatsScreen
@@ -41,6 +43,10 @@ fun TheCatNavHost(navController: NavHostController) {
         ) {
             val viewModel: CatDetailsViewModel = hiltViewModel()
             CatDetailsScreen(state = viewModel.state)
+        }
+        composable(route = BaseScreen.Breeds.name) {
+            val viewModel: BreedsViewModel = hiltViewModel()
+            BreedsScreen(state = viewModel.state)
         }
     }
 }

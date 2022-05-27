@@ -1,8 +1,7 @@
 package com.younny.demo.thecatapp.ui.common
 
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Face
-import androidx.compose.material.icons.filled.ThumbUp
+import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
 enum class BaseScreen(val icon: ImageVector) {
@@ -11,6 +10,15 @@ enum class BaseScreen(val icon: ImageVector) {
     ),
     CatDetails(
         icon = Icons.Filled.ThumbUp
+    ),
+    Breeds(
+        icon = Icons.Filled.Build
+    ),
+    Game(
+        icon = Icons.Filled.PlayArrow
+    ),
+    Settings(
+        icon = Icons.Filled.Settings
     );
 
     companion object {
@@ -18,6 +26,9 @@ enum class BaseScreen(val icon: ImageVector) {
             when (route?.substringBefore("/")) {
                 CatImages.name -> CatImages
                 CatDetails.name -> CatDetails
+                Breeds.name -> Breeds
+                Game.name -> Game
+                Settings.name -> Settings
                 null -> CatImages
                 else -> throw IllegalArgumentException("Route $route is not recognized.")
             }

@@ -15,5 +15,11 @@ interface CatDao {
     fun getCatImages(): Flow<List<CatImage>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAll(images: List<CatImage>)
+    suspend fun insertAllCatImages(images: List<CatImage>)
+
+    @Query("SELECT * FROM cat_image_details_table WHERE id == :imageId")
+    fun getCatImageDetails(imageId: String): Flow<CatImageDetails>
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    suspend fun insertCatImageDetails(catImageDetails: CatImageDetails)
 }

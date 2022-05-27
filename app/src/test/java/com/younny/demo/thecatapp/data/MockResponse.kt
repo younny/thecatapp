@@ -9,6 +9,14 @@ object MockResponse {
         CatImage(id = "1", url = "https://foo1.boo1.com", breeds = listOf(), categories = listOf())
     )
 
+    fun mockImageDetails(imageId: String): CatImageDetails {
+        return when(imageId) {
+            "0" -> MOCK_CAT_IMAGE_DETAILS_0
+            "1" -> MOCK_CAT_IMAGE_DETAILS_1
+            else -> MOCK_CAT_IMAGE_DETAILS_0 //default
+        }
+    }
+
     val MOCK_CAT_IMAGE_DETAILS_0 = CatImageDetails(id = "0", url = "https://foo.boo.com", width = 1, height = 1)
     val MOCK_CAT_IMAGE_DETAILS_1 = CatImageDetails(id = "1", url = "https://foo.boo.com", width = 1, height = 1)
 

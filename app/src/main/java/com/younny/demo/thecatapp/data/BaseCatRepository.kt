@@ -6,5 +6,5 @@ import kotlinx.coroutines.flow.Flow
 
 interface BaseCatRepository {
     val catImages: Flow<List<CatImage>>
-    fun catDetails(imageId: String): Flow<CatImageDetails>
+    fun catImageDetails(imageId: String): Flow<CatImageDetails>
 }

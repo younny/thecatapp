@@ -21,7 +21,7 @@ class CatDetailsScreenTest {
     fun displays_loading_spinner() {
         composeTestRule.setContent {
             CatDetailsScreen(
-                CatDetailsContract.State(
+                BreedsContract.State(
                     details = null,
                     isLoading = true
                 )
@@ -35,7 +35,7 @@ class CatDetailsScreenTest {
     fun displays_cat_image() {
         composeTestRule.setContent {
             CatDetailsScreen(
-                CatDetailsContract.State(
+                BreedsContract.State(
                     details = catDetails,
                     isLoading = false
                 )
@@ -50,7 +50,7 @@ class CatDetailsScreenTest {
     fun displays_error() {
         composeTestRule.setContent {
             CatDetailsScreen(
-                CatDetailsContract.State(
+                BreedsContract.State(
                     details = null,
                     isLoading = false,
                     error = "Error 404"

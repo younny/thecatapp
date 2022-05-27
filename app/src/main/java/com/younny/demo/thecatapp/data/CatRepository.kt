@@ -16,13 +16,13 @@ class CatRepository @Inject constructor(
 ): BaseCatRepository {
     override val catImages: Flow<List<CatImage>> = flow {
         val images = catApiService.fetchCatImages()
-        catDao.insertAll(images)
+        catDao.insertAllCatImages(images)
         emit(images)
     }.flowOn(Dispatchers.IO)
 
-    override fun catDetails(imageId: String): Flow<CatImageDetails> = flow {
+    override fun catImageDetails(imageId: String): Flow<CatImageDetails> = flow {
         val details = catApiService.fetchImageDetails(imageId)
-        //todo insert to database
+        catDao.insertCatImageDetails(details)
         emit(details)
     }.flowOn(Dispatchers.IO)
 }

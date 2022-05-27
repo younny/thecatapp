@@ -24,7 +24,6 @@ class CatDetailsViewModelTest {
     val mainCoroutineRule = MainCoroutineRule()
 
     private lateinit var viewModel: CatDetailsViewModel
-    private val dispatcher = StandardTestDispatcher()
     private val stateHandle = SavedStateHandle(mutableMapOf<String, Any>(NavigationKeys.Arg.CAT_IMAGE_ID to "1"))
 
     @Before

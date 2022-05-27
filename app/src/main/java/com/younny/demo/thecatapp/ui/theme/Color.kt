@@ -2,7 +2,10 @@ package com.younny.demo.thecatapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple200 = Color(0xFFBB86FC)
-val Purple500 = Color(0xFF6200EE)
-val Purple700 = Color(0xFF3700B3)
-val Teal200 = Color(0xFF03DAC5)
+val Yellow500 = Color(0xFFF2D600)
+val Yellow600 = Color(0xFFE6C60D)
+val Yellow700 = Color(0xFFD9B51C)
+val Yellow800 = Color(0xFFCCA42B)
+val Yellow900 = Color(0xFFBD903C)
+val Gray200 = Color(0xFFE7E7E7)
+val Gray400 = Color(0xFF9E9E9E)

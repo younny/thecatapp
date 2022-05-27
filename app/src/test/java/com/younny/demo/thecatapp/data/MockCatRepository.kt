@@ -8,7 +8,7 @@ class MockCatRepository : BaseCatRepository {
 
     override val catImages = flowOf(MockResponse.MOCK_CAT_IMAGES)
 
-    override fun catDetails(imageId: String): Flow<CatImageDetails> {
+    override fun catImageDetails(imageId: String): Flow<CatImageDetails> {
         return flowOf(
             when (imageId) {
                 "0" -> MockResponse.MOCK_CAT_IMAGE_DETAILS_0

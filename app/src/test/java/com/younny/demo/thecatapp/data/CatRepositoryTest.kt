@@ -35,7 +35,7 @@ class CatRepositoryTest {
     @Test
     fun `load cat image details success`() = runBlocking {
         val repository = CatRepository(mockCatDao, mockCatApiService)
-        val firstItem = repository.catDetails("0").first()
+        val firstItem = repository.catImageDetails("0").first()
 
         assert(firstItem == MOCK_CAT_IMAGE_DETAILS_0)
     }

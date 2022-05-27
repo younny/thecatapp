@@ -26,7 +26,7 @@ class TheCatNavHostTest {
     @get:Rule(order = 1)
     val composeTestRule = createAndroidComposeRule<TestMainActivity>()
 
-    lateinit var navController: NavHostController
+    private lateinit var navController: NavHostController
 
     @Before
     fun setup() {

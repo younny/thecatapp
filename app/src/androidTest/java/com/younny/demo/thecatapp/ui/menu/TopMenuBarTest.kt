@@ -1,12 +1,10 @@
 package com.younny.demo.thecatapp.ui.menu
 
-import androidx.compose.material.Icon
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Menu
-import androidx.compose.ui.test.assertIsDisplayed
+import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
-import androidx.compose.ui.test.onNodeWithContentDescription
-import androidx.compose.ui.test.onNodeWithText
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.rememberNavController
+import com.younny.demo.thecatapp.ui.common.BaseScreen
 import org.junit.Rule
 import org.junit.Test
 
@@ -15,17 +13,27 @@ class TopMenuBarTest {
     @get:Rule
     val composeTestRule = createComposeRule()
 
+    private lateinit var navController: NavHostController
+
     @Test
-    fun set_different_icon() {
+    fun toggle_drawer() {
+        var drawerToggled = false
         composeTestRule.setContent {
+            navController = rememberNavController()
             TopMenuBar(
-                navigationIcon = {
-                    Icon(imageVector = Icons.Default.Menu, contentDescription = "Menu Icon")
+                navigationIcon = navigationIcon(navController = navController) {
+                    drawerToggled = true
                 }
             )
         }
 
         composeTestRule.onNodeWithText("The Cat App").assertIsDisplayed()
-        composeTestRule.onNodeWithContentDescription("Menu Icon").assertIsDisplayed()
+
+        val backStack = navController.previousBackStackEntry
+        assert(backStack == null)
+        composeTestRule.onNodeWithContentDescription("Menu Button").assertIsDisplayed().apply {
+            performClick()
+        }
+        assert(drawerToggled)
     }
 }

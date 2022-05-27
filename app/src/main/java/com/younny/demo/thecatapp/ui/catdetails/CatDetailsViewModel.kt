@@ -8,7 +8,6 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.younny.demo.thecatapp.data.BaseCatRepository
-import com.younny.demo.thecatapp.data.CatRepository
 import com.younny.demo.thecatapp.ui.main.NavigationKeys
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.catch
@@ -39,7 +38,7 @@ class CatDetailsViewModel @Inject constructor(
         viewModelScope.launch {
             val imageId = stateHandle.get<String>(NavigationKeys.Arg.CAT_IMAGE_ID)
                 ?: throw IllegalArgumentException("No imageId was given to destination.")
-            catRepository.catDetails(imageId)
+            catRepository.catImageDetails(imageId)
                 .catch { error ->
                     Timber.e("<------ error caught! : $error")
                     state = state.copy(
