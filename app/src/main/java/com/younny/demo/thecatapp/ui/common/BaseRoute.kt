@@ -4,7 +4,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.*
 import androidx.compose.ui.graphics.vector.ImageVector
 
-enum class BaseScreen(val icon: ImageVector) {
+enum class BaseRoute(val icon: ImageVector) {
     CatImages(
         icon = Icons.Filled.Face
     ),
@@ -22,7 +22,7 @@ enum class BaseScreen(val icon: ImageVector) {
     );
 
     companion object {
-        fun fromRoute(route: String?): BaseScreen =
+        fun fromRoute(route: String?): BaseRoute =
             when (route?.substringBefore("/")) {
                 CatImages.name -> CatImages
                 CatDetails.name -> CatDetails

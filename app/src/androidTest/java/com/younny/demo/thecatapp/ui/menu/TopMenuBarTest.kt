@@ -4,7 +4,6 @@ import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.younny.demo.thecatapp.ui.common.BaseScreen
 import org.junit.Rule
 import org.junit.Test
 

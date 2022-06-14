@@ -2,6 +2,7 @@ package com.younny.demo.thecatapp.data
 
 import com.younny.demo.thecatapp.data.MockResponse.MOCK_CAT_IMAGES
 import com.younny.demo.thecatapp.data.MockResponse.MOCK_CAT_IMAGE_DETAILS_0
+import com.younny.demo.thecatapp.data.common.Result
 import com.younny.demo.thecatapp.data.local.CatDao
 import com.younny.demo.thecatapp.data.remote.CatApiService
 import kotlinx.coroutines.flow.first
@@ -29,7 +30,7 @@ class CatRepositoryTest {
         val repository = CatRepository(mockCatDao, mockCatApiService)
         val firstItem = repository.catImages.first()
 
-        assert(firstItem == MOCK_CAT_IMAGES)
+        assert(firstItem == Result.Success(MOCK_CAT_IMAGES))
     }
 
     @Test
@@ -37,6 +38,6 @@ class CatRepositoryTest {
         val repository = CatRepository(mockCatDao, mockCatApiService)
         val firstItem = repository.catImageDetails("0").first()
 
-        assert(firstItem == MOCK_CAT_IMAGE_DETAILS_0)
+        assert(firstItem == Result.Success(MOCK_CAT_IMAGE_DETAILS_0))
     }
 }

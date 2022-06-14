@@ -8,6 +8,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.testTag
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.younny.demo.thecatapp.ui.cats.CatsContract
 import com.younny.demo.thecatapp.ui.cats.CatsScreen
 import com.younny.demo.thecatapp.ui.theme.TheCatAppTheme
@@ -17,7 +18,9 @@ import com.younny.demo.thecatapp.ui.theme.TheCatAppTheme
 fun LoadingSpinner() {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = Modifier.fillMaxSize().testTag("loadingSpinner")
+        modifier = Modifier
+            .fillMaxSize()
+            .testTag("loadingSpinner")
     ) {
         CircularProgressIndicator()
     }
@@ -27,6 +30,6 @@ fun LoadingSpinner() {
 @Composable
 fun LoadingSpinnerPreview() {
     TheCatAppTheme {
-        CatsScreen(CatsContract.State(isLoading = true), null) {}
+        CatsScreen(hiltViewModel(), null) {}
     }
 }

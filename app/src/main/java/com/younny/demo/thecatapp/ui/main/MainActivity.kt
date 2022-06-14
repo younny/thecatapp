@@ -1,5 +1,6 @@
 package com.younny.demo.thecatapp.ui.main
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -11,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.younny.demo.thecatapp.ui.common.BaseScreen
+import com.younny.demo.thecatapp.ui.common.BaseRoute
 import com.younny.demo.thecatapp.ui.menu.DrawerMenu
 import com.younny.demo.thecatapp.ui.menu.TopMenuBar
 import com.younny.demo.thecatapp.ui.menu.navigationIcon
@@ -32,12 +33,13 @@ class MainActivity : ComponentActivity() {
     }
 }
 
+@SuppressLint("UnusedMaterialScaffoldPaddingParameter")
 @Composable
 fun TheCatApp() {
-    val allScreens = BaseScreen.values().toList()
+    val allScreens = BaseRoute.values().toList()
     val navController = rememberNavController()
     val backStackEntry = navController.currentBackStackEntryAsState()
-    val currentScreen = BaseScreen.fromRoute(backStackEntry.value?.destination?.route)
+    val currentScreen = BaseRoute.fromRoute(backStackEntry.value?.destination?.route)
 
     val scaffoldState = rememberScaffoldState()
     val scope = rememberCoroutineScope()

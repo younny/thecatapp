@@ -13,7 +13,7 @@ import com.younny.demo.thecatapp.ui.catdetails.CatDetailsScreen
 import com.younny.demo.thecatapp.ui.catdetails.CatDetailsViewModel
 import com.younny.demo.thecatapp.ui.cats.CatsScreen
 import com.younny.demo.thecatapp.ui.cats.CatsViewModel
-import com.younny.demo.thecatapp.ui.common.BaseScreen
+import com.younny.demo.thecatapp.ui.common.BaseRoute
 import com.younny.demo.thecatapp.ui.game.GameScreen
 import com.younny.demo.thecatapp.ui.main.NavigationKeys.Arg.CAT_IMAGE_ID
 import com.younny.demo.thecatapp.ui.settings.SettingsScreen
@@ -23,20 +23,20 @@ import kotlinx.coroutines.flow.receiveAsFlow
 fun TheCatNavHost(navController: NavHostController) {
     NavHost(
         navController = navController,
-        startDestination = BaseScreen.CatImages.name
+        startDestination = BaseRoute.CatImages.name
     ) {
-        composable(route = BaseScreen.CatImages.name) {
+        composable(route = BaseRoute.CatImages.name) {
             val viewModel: CatsViewModel = hiltViewModel()
             CatsScreen(
-                state = viewModel.state,
+                viewModel = viewModel,
                 effectFlow = viewModel.effects.receiveAsFlow(),
                 onNavigationRequested = { imageId ->
-                    navController.navigate("${BaseScreen.CatDetails.name}/$imageId")
+                    navController.navigate("${BaseRoute.CatDetails.name}/$imageId")
                 }
             )
         }
         composable(
-            route = "${BaseScreen.CatDetails.name}/{$CAT_IMAGE_ID}",
+            route = "${BaseRoute.CatDetails.name}/{$CAT_IMAGE_ID}",
             arguments = listOf(
                 navArgument(CAT_IMAGE_ID) {
                     type = NavType.StringType
@@ -44,16 +44,16 @@ fun TheCatNavHost(navController: NavHostController) {
             )
         ) {
             val viewModel: CatDetailsViewModel = hiltViewModel()
-            CatDetailsScreen(state = viewModel.state)
+            CatDetailsScreen(viewModel = viewModel)
         }
-        composable(route = BaseScreen.Breeds.name) {
+        composable(route = BaseRoute.Breeds.name) {
             val viewModel: BreedsViewModel = hiltViewModel()
             BreedsScreen(state = viewModel.state)
         }
-        composable(route = BaseScreen.Game.name) {
+        composable(route = BaseRoute.Game.name) {
             GameScreen()
         }
-        composable(route = BaseScreen.Settings.name) {
+        composable(route = BaseRoute.Settings.name) {
             SettingsScreen()
         }
     }

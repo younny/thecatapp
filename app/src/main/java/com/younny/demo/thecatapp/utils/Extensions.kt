@@ -3,6 +3,7 @@ package com.younny.demo.thecatapp.utils
 import androidx.compose.runtime.*
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
+import kotlinx.coroutines.flow.MutableStateFlow
 
 @Composable
 fun NavController.previousBackStackEntryAsState(): State<NavBackStackEntry?> {

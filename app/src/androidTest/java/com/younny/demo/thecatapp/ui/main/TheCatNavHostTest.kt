@@ -2,12 +2,11 @@ package com.younny.demo.thecatapp.ui.main
 
 import androidx.compose.ui.test.assertIsDisplayed
 import androidx.compose.ui.test.junit4.createAndroidComposeRule
-import androidx.compose.ui.test.junit4.createComposeRule
 import androidx.compose.ui.test.onNodeWithContentDescription
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
 import com.younny.demo.thecatapp.TestMainActivity
-import com.younny.demo.thecatapp.ui.common.BaseScreen
+import com.younny.demo.thecatapp.ui.common.BaseRoute
 import dagger.hilt.android.testing.HiltAndroidRule
 import dagger.hilt.android.testing.HiltAndroidTest
 import kotlinx.coroutines.Dispatchers
@@ -39,15 +38,13 @@ class TheCatNavHostTest {
 
     @Test
     fun launches_cat_images_screen() {
-        composeTestRule.onNodeWithContentDescription("Cat Images Screen").assertIsDisplayed()
-
         val route = navController.currentBackStackEntry?.destination?.route
-        assert(route == BaseScreen.CatImages.name)
+        assert(route == BaseRoute.CatImages.name)
     }
 
 //    @Test
 //    fun navigate_to_cat_details_screen() {
-//        val newRoute = "${BaseScreen.CatDetails.name}/0"
+//        val newRoute = "${BaseRoute.CatDetails.name}/0"
 //        runBlocking {
 //            withContext(Dispatchers.Main) {
 //                navController.navigate(newRoute)
@@ -55,6 +52,5 @@ class TheCatNavHostTest {
 //        }
 //        val route = navController.currentBackStackEntry?.destination?.route
 //        assert(route == newRoute)
-//        composeTestRule.onNodeWithContentDescription("Cat Details Screen").assertIsDisplayed()
 //    }
 }

@@ -6,9 +6,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.younny.demo.thecatapp.data.common.CallErrors
 
 @Composable
-fun ErrorOccurred(message: String) {
+fun ErrorOccurred(errors: CallErrors) {
     Box(modifier = Modifier
         .fillMaxWidth()
         .fillMaxHeight()
@@ -16,8 +17,16 @@ fun ErrorOccurred(message: String) {
         .wrapContentSize(Alignment.Center)) {
         Column {
             Text(
-                text = message
+                text = extractMessage(errors)
             )
         }
+    }
+}
+
+fun extractMessage(callErrors: CallErrors): String {
+    return when (callErrors) {
+        is CallErrors.ErrorServer -> "Server Error Occurred."
+        is CallErrors.ErrorEmptyData -> "Data is empty."
+        is CallErrors.ErrorException -> callErrors.throwable.message.toString()
     }
 }

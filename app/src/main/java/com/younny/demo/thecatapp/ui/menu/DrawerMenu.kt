@@ -22,7 +22,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.younny.demo.thecatapp.R
-import com.younny.demo.thecatapp.ui.common.BaseScreen
+import com.younny.demo.thecatapp.ui.common.BaseRoute
 
 @Composable
 fun DrawerMenu(
@@ -37,7 +37,7 @@ fun DrawerMenu(
     )
 
     val backStackEntry = navController.currentBackStackEntryAsState()
-    val currentScreen = BaseScreen.fromRoute(backStackEntry.value?.destination?.route)
+    val currentScreen = BaseRoute.fromRoute(backStackEntry.value?.destination?.route)
 
     LazyColumn(modifier = Modifier.semantics { contentDescription = "Drawer Menu" }) {
         item {

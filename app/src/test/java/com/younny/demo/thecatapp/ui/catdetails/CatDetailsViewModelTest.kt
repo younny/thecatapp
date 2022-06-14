@@ -4,6 +4,7 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.SavedStateHandle
 import com.younny.demo.thecatapp.MainCoroutineRule
 import com.younny.demo.thecatapp.data.MockCatRepository
+import com.younny.demo.thecatapp.ui.cats.CatsState
 import com.younny.demo.thecatapp.ui.main.NavigationKeys
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.StandardTestDispatcher
@@ -42,8 +43,9 @@ class CatDetailsViewModelTest {
     fun `fetch cat details success`() = runTest {
         viewModel.fetchCatImageDetails()
         advanceUntilIdle()
-        assert(viewModel.state.details?.id == "1")
-        assert(!viewModel.state.isLoading)
+        val details = (viewModel.state.value as CatDetailsState.ResultCatDetails).data
+        assert(details.id == "1")
+        assert(viewModel.state.value != CatDetailsState.Loading)
     }
 
 }

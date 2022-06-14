@@ -9,9 +9,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,11 +28,11 @@ import timber.log.Timber
 
 @Composable
 fun CatsScreen(
-    state: CatsContract.State,
+    viewModel: CatsViewModel,
     effectFlow: Flow<CatsContract.Effect>?,
     onNavigationRequested: (imageId: String) -> Unit
 ) {
-    Timber.d("<---- state.isLoading: ${state.isLoading} / cats: ${state.catImages}")
+    val state by viewModel.state.collectAsState()
 
     LaunchedEffect(effectFlow) {
         effectFlow?.onEach { effect ->
@@ -50,13 +48,17 @@ fun CatsScreen(
             contentDescription = "Cat Images Screen"
         }
     ) {
-        CatsList(catImages = state.catImages) { imageId ->
-            onNavigationRequested(imageId)
-        }
-        if (state.isLoading)
-            LoadingSpinner()
-    }
 
+        when (state) {
+            is CatsState.Loading -> LoadingSpinner()
+            is CatsState.ResultAllCatImages -> {
+                CatsList(catImages = (state as CatsState.ResultAllCatImages).data) { imageId ->
+                    onNavigationRequested(imageId)
+                }
+            }
+            else -> {}
+        }
+    }
 }
 
 @Composable

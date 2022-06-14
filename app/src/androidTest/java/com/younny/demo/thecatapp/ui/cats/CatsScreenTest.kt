@@ -2,36 +2,51 @@ package com.younny.demo.thecatapp.ui.cats
 
 import androidx.compose.ui.test.*
 import androidx.compose.ui.test.junit4.createComposeRule
+import androidx.hilt.navigation.compose.hiltViewModel
+import com.younny.demo.thecatapp.data.BaseCatRepository
+import com.younny.demo.thecatapp.data.CatRepository
 import com.younny.demo.thecatapp.data.model.CatImage
+import dagger.hilt.android.testing.HiltAndroidRule
+import dagger.hilt.android.testing.HiltAndroidTest
 import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import javax.inject.Inject
 
+@HiltAndroidTest
 class CatsScreenTest {
+    @get:Rule(order = 0)
+    val hiltRule = HiltAndroidRule(this)
 
-    @get:Rule
+    @get:Rule(order = 1)
     val composeTestRule = createComposeRule()
 
     private val catImages: List<CatImage> = listOf(CatImage("0", "https://abc", breeds = listOf(), categories = listOf()))
 
+    @Inject
+    lateinit var catsRepository: BaseCatRepository
+
+    lateinit var viewModel: CatsViewModel
+
     @Before
     fun setup() {
+        hiltRule.inject()
+        viewModel = CatsViewModel(catsRepository)
+
     }
 
     @After
     fun teardown() {
-
     }
 
     @Test
     fun show_loading_spinner() {
+        viewModel.update(CatsState.Loading)
+
         composeTestRule.setContent {
             CatsScreen(
-                state = CatsContract.State(
-                    catImages = listOf(),
-                    isLoading = true
-                ),
+                viewModel = viewModel,
                 effectFlow = null,
                 onNavigationRequested = {}
             )
@@ -43,12 +58,11 @@ class CatsScreenTest {
 
     @Test
     fun loads_cat_images_list() {
+        viewModel.update(CatsState.ResultAllCatImages(catImages))
+
         composeTestRule.setContent {
             CatsScreen(
-                state = CatsContract.State(
-                    catImages = catImages,
-                    isLoading = false
-                ),
+                viewModel = viewModel,
                 effectFlow = null,
                 onNavigationRequested = {}
             )
@@ -62,12 +76,10 @@ class CatsScreenTest {
     @Test
     fun click_cat_item() {
         var itemClicked = false
+        viewModel.update(CatsState.ResultAllCatImages(catImages))
         composeTestRule.setContent {
             CatsScreen(
-                state = CatsContract.State(
-                    catImages = catImages,
-                    isLoading = false
-                ),
+                viewModel = viewModel,
                 effectFlow = null,
                 onNavigationRequested = {
                     itemClicked = true

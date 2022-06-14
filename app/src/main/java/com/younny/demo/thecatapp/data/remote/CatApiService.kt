@@ -1,6 +1,7 @@
 package com.younny.demo.thecatapp.data.remote
 
 import com.younny.demo.thecatapp.data.model.*
+import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.Query
@@ -18,7 +19,7 @@ interface CatApiService {
 //        @Query("category_ids") categories: String? = "",
 //        @Query("breed_ids") breeds: String? = "",
 //        @Query("has_breeds") hasBreeds: Int? = 0
-    ): List<CatImage>
+    ): Response<List<CatImage>>
 
     @GET("v1/images/{image_id}")
     suspend fun fetchImageDetails(
@@ -27,17 +28,17 @@ interface CatApiService {
 //        @Query("size") size: String?,
 //        @Query("include_vote") includeVote: Boolean?,
 //        @Query("include_favourite") includeFavourite: Boolean?
-    ): CatImageDetails
+    ): Response<CatImageDetails>
 
     @GET("v1/votes")
     suspend fun getVotes(
         @Path(value = "sub_id") subId: String?
-    ): List<Vote>
+    ): Response<List<Vote>>
 
     @GET("v1/votes/{vote_id}")
     suspend fun getVote(
         @Path(value = "vote_id") voteId: String
-    ): Vote
+    ): Response<Vote>
 
 //    @GET("v1/favourites")
 //    suspend fun getFavourites(
@@ -50,16 +51,16 @@ interface CatApiService {
 //    )
 
     @GET("v1/categories")
-    suspend fun getCategories(): List<Category>
+    suspend fun getCategories(): Response<List<Category>>
 
     @GET("v1/breeds")
     suspend fun getBreeds(
         @Query("limit") limit: Int? = 10,
         @Query("page") page: Int? = 0
-    ): List<Breed>
+    ): Response<List<Breed>>
 
     @GET("v1/breeds/{breed_id}")
     suspend fun getBreed(
         @Path(value = "breed_id") breedId: Int
-    ): List<BreedDetails>
+    ): Response<List<BreedDetails>>
 }

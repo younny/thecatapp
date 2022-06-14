@@ -7,6 +7,8 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,15 +26,19 @@ import timber.log.Timber
 
 @Composable
 fun CatDetailsScreen(
-    state: CatDetailsContract.State
+    viewModel: CatDetailsViewModel
 ) {
-    Timber.d("<---- state.isLoading: ${state.isLoading} / details: ${state.details}")
+    val state by viewModel.state.collectAsState()
+
     Surface(modifier = Modifier.semantics {
         contentDescription = "Cat Details Screen"
     }, color = MaterialTheme.colors.background) {
-        if (state.details != null) CatDetailsCard(state.details)
-        else if (state.error != null) ErrorOccurred(state.error)
-        else if (state.isLoading) LoadingSpinner()
+        when (state) {
+            is CatDetailsState.Loading -> LoadingSpinner()
+            is CatDetailsState.ResultCatDetails -> CatDetailsCard((state as CatDetailsState.ResultCatDetails).data)
+            is CatDetailsState.Exception -> ErrorOccurred(errors = (state as CatDetailsState.Exception).callErrors)
+            else -> {}
+        }
     }
 }
 

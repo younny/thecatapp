@@ -35,8 +35,9 @@ internal class CatsViewModelTest {
     fun `fetch cat images success`() = runTest {
         viewModel.fetchCatImages()
         advanceUntilIdle()
-        assert(viewModel.state.catImages.size == 2)
-        assert(!viewModel.state.isLoading)
+        val catImages = (viewModel.state.value as CatsState.ResultAllCatImages).data
+        assert(catImages.size == 2)
+        assert(viewModel.state.value != CatsState.Loading)
         assert(viewModel.effects.receive() == CatsContract.Effect.Loaded)
     }
 }
