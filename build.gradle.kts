@@ -1,18 +1,20 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 buildscript {
-    extra.apply {
-        set("compose_version", "1.2.0-alpha08")
+    repositories {
+        google()
+        mavenCentral()
     }
     dependencies {
-        classpath("com.google.dagger:hilt-android-gradle-plugin:2.38.1")
+        classpath("com.google.dagger:hilt-android-gradle-plugin:${Versions.HILT_AGP}")
     }
 }
 
 plugins {
-    id("com.android.application") version "7.2.0-beta02" apply false
-    id("com.android.library") version "7.2.0-beta02" apply false
-    id("org.jetbrains.kotlin.android") version "1.6.20" apply false
+    id("com.android.application") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("com.android.library") version Versions.ANDROID_GRADLE_PLUGIN apply false
+    id("org.jetbrains.kotlin.android") version Versions.KOTLIN apply false
+    id("org.jetbrains.kotlin.jvm") version Versions.KOTLIN apply false
 }
 
 tasks.register("clean", Delete::class) {

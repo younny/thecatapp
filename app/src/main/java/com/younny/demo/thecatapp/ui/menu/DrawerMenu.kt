@@ -77,7 +77,7 @@ fun DrawerContent(
     ) {
         Icon(imageVector = item.icon, contentDescription = "${item.title} Menu Icon")
 
-        Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(16.dp))
 
         if (selected) {
             Text(
@@ -102,18 +102,22 @@ fun DrawerContent(
 
 @Composable
 fun DrawerHeader() {
-    Image(
-        painter = painterResource(id = R.drawable.ic_logo),
-        contentDescription = "The Cat Logo",
-        modifier = Modifier
-            .fillMaxWidth()
-    )
+    Box(
+        modifier = Modifier.padding(bottom = 16.dp)
+    ) {
+        Image(
+            painter = painterResource(id = R.drawable.ic_logo),
+            contentDescription = "The Cat Logo",
+            modifier = Modifier
+                .fillMaxWidth()
+        )
 
-    Spacer(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(16.dp)
-    )
+        Spacer(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(16.dp)
+        )
+    }
 }
 
 @Preview(showBackground = true)

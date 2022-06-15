@@ -17,6 +17,10 @@ class CatsViewModel @Inject constructor(
 
     val effects = Channel<CatsContract.Effect>(UNLIMITED)
 
+    init {
+        fetchCatImages()
+    }
+
     @VisibleForTesting
     fun fetchCatImages() {
         viewModelScope.launch {

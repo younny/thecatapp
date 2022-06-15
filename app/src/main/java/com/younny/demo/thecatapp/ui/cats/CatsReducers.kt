@@ -1,7 +1,7 @@
 package com.younny.demo.thecatapp.ui.cats
 
-import com.younny.demo.thecatapp.data.model.CatImage
 import com.younny.demo.thecatapp.data.common.Result
+import com.younny.demo.thecatapp.data.model.CatImage
 
 fun Result<List<CatImage>>.reduce(): CatsState {
     return when (this) {

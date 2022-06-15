@@ -5,20 +5,17 @@ plugins {
     kotlin("kapt")
 }
 
-val composeVersion = rootProject.extra["compose_version"]
-
-
 android {
-    compileSdk = 31
+    compileSdk = Versions.COMPILE_SDK
 
     defaultConfig {
         applicationId = "com.younny.demo.thecatapp"
-        minSdk = 29
-        targetSdk = 31
-        versionCode = 1
-        versionName = "1.0"
-
+        minSdk = Versions.MIN_SDK
+        targetSdk = Versions.TARGET_SDK
+        versionCode = Versions.versionCode
+        versionName = Versions.versionName
         testInstrumentationRunner = "com.younny.demo.thecatapp.CustomTestRunner"
+
         vectorDrawables {
             useSupportLibrary = true
         }
@@ -26,7 +23,7 @@ android {
 
     buildTypes {
         getByName("release") {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -45,7 +42,7 @@ android {
         viewBinding = true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion = "$composeVersion"
+        kotlinCompilerExtensionVersion = Versions.COMPOSE
     }
     packagingOptions {
         resources {
@@ -55,59 +52,64 @@ android {
 }
 
 dependencies {
-    implementation("androidx.core:core-ktx:1.7.0")
-    implementation("androidx.compose.ui:ui:$composeVersion")
-    implementation("androidx.compose.material:material:$composeVersion")
-    implementation("androidx.compose.ui:ui-tooling-preview:$composeVersion")
-    implementation("androidx.activity:activity-compose:$composeVersion")
-    implementation("androidx.navigation:navigation-compose:2.4.2")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:2.4.1")
-    implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.4.1")
-    implementation("androidx.fragment:fragment-ktx:1.4.1")
-    implementation("androidx.appcompat:appcompat:1.4.1")
+    api(platform(project(":depconstraints")))
+    kapt(platform(project(":depconstraints")))
+    androidTestApi(platform(project(":depconstraints")))
+
+    implementation(Libs.CORE_KTX)
+
+    implementation(Libs.FRAGMENT_KTX)
+    implementation(Libs.APPCOMPAT)
+
+    implementation(Libs.COMPOSE_UI)
+    implementation(Libs.COMPOSE_MATERIAL)
+    implementation(Libs.COMPOSE_UI_PREVIEW)
+    implementation(Libs.COMPOSE_ACTIVITY)
+    implementation(Libs.NAVIGATION_COMPOSE)
+
+    implementation(Libs.LIFECYCLE_RUNTIME_KTX)
+    implementation(Libs.LIFECYCLE_VIEWMODEL_KTX)
+    implementation(Libs.LIFECYCLE_LIVEDATA_KTX)
+    implementation(Libs.LIFECYCLE_VIEWMODEL_COMPOSE)
 
     /* Dependency Injection */
-    implementation("com.google.dagger:hilt-android:2.38.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.38.1")
-    implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation(Libs.HILT_ANDROID)
+    kapt(Libs.HILT_COMPILER)
+    implementation(Libs.HILT_NAVIGATION_COMPOSE)
 
     /* Database */
-    implementation("androidx.room:room-ktx:2.4.2")
-    implementation("androidx.room:room-runtime:2.4.2")
-    kapt("androidx.room:room-compiler:2.4.2")
+    implementation(Libs.ROOM_KTX)
+    implementation(Libs.ROOM_RUNTIME)
+    kapt(Libs.ROOM_COMPILER)
 
     /* Networking */
-    implementation("com.squareup.retrofit2:retrofit:2.9.0")
-    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.2")
+    implementation(Libs.RETROFIT)
+    implementation(Libs.RETROFIT_CONVERTER_GSON)
+    implementation(Libs.OKHTTP_LOGGING_INTERCEPTOR)
 
     /* Coroutine */
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1")
+    implementation(Libs.COROUTINES_ANDROID)
 
     /* Image Caching */
-    implementation("com.github.bumptech.glide:glide:4.13.0")
-    implementation("io.coil-kt:coil-compose:2.0.0-rc03")
+    implementation(Libs.GLIDE)
+    implementation(Libs.COIL_COMPOSE)
 
     /* Log */
-    implementation("com.jakewharton.timber:timber:4.7.1")
+    implementation(Libs.TIMBER)
 
     /* Test */
-    testImplementation("org.jetbrains.kotlinx:kotlinx-coroutines-test:1.6.1")
-    testImplementation("androidx.test:core-ktx:1.4.0")
-    testImplementation("junit:junit:4.13.2")
-    testImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.arch.core:core-testing:2.1.0")
-    androidTestImplementation("androidx.test.ext:junit-ktx:1.1.3")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.4.0")
-    androidTestImplementation("androidx.navigation:navigation-testing:2.4.2")
-
-    androidTestImplementation("com.google.dagger:hilt-android-testing:2.38.1")
-    kaptAndroidTest("com.google.dagger:hilt-android-compiler:2.38.1")
-
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-tooling:$composeVersion")
-    debugImplementation("androidx.compose.ui:ui-test-manifest:$composeVersion")
+    testImplementation(Libs.COROUTINES_TEST)
+    testImplementation(Libs.CORE_KTX)
+    testImplementation(Libs.JUNIT)
+    testImplementation(Libs.CORE_KTX_TEST)
+    androidTestImplementation(Libs.ARCH_TEST)
+    androidTestImplementation(Libs.EXT_JUNIT_KTX)
+    androidTestImplementation(Libs.ESPRESSO_CORE)
+    androidTestImplementation(Libs.NAVIGATION_TEST)
+    androidTestImplementation(Libs.HILT_TEST)
+    kaptAndroidTest(Libs.HILT_COMPILER)
+    androidTestImplementation(Libs.COMPOSE_TEST)
+    debugImplementation(Libs.COMPOSE_TOOLING)
+    debugImplementation(Libs.COMPOSE_TEST_MANIFEST)
 
 }
